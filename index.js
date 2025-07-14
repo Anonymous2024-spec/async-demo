@@ -1,36 +1,36 @@
 console.log("Before");
-getUser(1, handleUser);
+getUser(1, (user) => {
+  getRepositories(user.gitHubUsername, (repos) => {
+    getCommits(repos[0], (commits) => {
+      console.log(commits);
+    });
+  });
+});
 console.log("After");
 
-function displayCommits(commits) {
-  console.log("Commits:", commits);
+function getUser(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Reading a user from a database...");
+      resolve({ id: id, gitHubUsername: "mosh" });
+    }, 2000);
+  });
 }
 
-function handleRepos(repos) {
-  getCommits(repos[0], displayCommits); // Assuming we only get commits for the first repo
+function getRepositories(username) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Calling GitHub API...");
+      resolve(["repo1", "repo2", "repo3"]);
+    }, 2000);
+  });
 }
 
-function handleUser(user) {
-  getRepos(user.gitHubUsername, handleRepos);
-}
-
-function getUser(id, callback) {
-  setTimeout(() => {
-    console.log("Reading a user from a database");
-    callback({ id: id, gitHubUsername: "mosh" });
-  }, 2000);
-}
-
-function getRepos(username, callback) {
-  setTimeout(() => {
-    console.log("Getting all repositories for", username);
-    callback(["repo1", "repo2", "repo3"]);
-  }, 2000);
-}
-
-function getCommits(repo, callback) {
-  setTimeout(() => {
-    console.log("Getting commits for", repo);
-    callback(["commit1", "commit2"]);
-  }, 2000);
+function getCommits(repo) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Calling GitHub API...");
+      resolve(["commit"]);
+    }, 2000);
+  });
 }
