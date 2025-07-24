@@ -27,4 +27,3 @@ async function getAllPublisedBackendCourses() {
   console.log(courses);
 }
 
-getAllPublisedBackendCourses();
