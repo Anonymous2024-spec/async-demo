@@ -27,3 +27,16 @@ async function getAllPublisedBackendCourses() {
   console.log(courses);
 }
 
+async function addCourses() {
+  const course = new Course({
+    name: "HTML5",
+    author: "Sifah",
+    isPublished: true,
+    price: 89,
+    tags: ["web", "frontend"],
+  });
+  const result = await course.save();
+  console.log(result);
+}
+
+addCourses();
